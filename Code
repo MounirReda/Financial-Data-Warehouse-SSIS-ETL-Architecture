@@ -1,0 +1,107 @@
+-- =============================
+-- DATABASE CREATION
+-- =============================
+CREATE DATABASE financial_transactions_db;
+GO
+
+CREATE DATABASE financial_data_warehouse;
+GO
+
+-- =============================
+-- USE DATABASE
+-- =============================
+USE financial_transactions_db;
+GO
+
+-- =============================
+-- TABLE: financial_transactions
+-- =============================
+CREATE TABLE dbo.financial_transactions (
+    transaction_id INT NOT NULL PRIMARY KEY,
+    customer_id INT NULL,
+    supplier_name VARCHAR(50) NULL,
+    transaction_date DATE NULL,
+    amount DECIMAL(10, 2) NULL,
+    currency VARCHAR(10) NULL
+);
+GO
+
+-- =============================
+-- TABLE: customer_details
+-- =============================
+CREATE TABLE dbo.customer_details (
+    customer_id INT NOT NULL PRIMARY KEY,
+    customer_name VARCHAR(50) NULL,
+    email VARCHAR(100) NULL,
+    phone VARCHAR(20) NULL
+);
+GO
+
+-- =============================
+-- USE DATA WAREHOUSE DATABASE
+-- =============================
+USE financial_data_warehouse;
+GO
+
+-- =============================
+-- TABLE: suppliers
+-- =============================
+CREATE TABLE dbo.suppliers (
+    supplier_id INT NOT NULL PRIMARY KEY,
+    supplier_name VARCHAR(100) NULL,
+    contact_name VARCHAR(100) NULL,
+    phone VARCHAR(25) NULL
+);
+GO
+
+-- =============================
+-- TABLE: exchange_rate
+-- =============================
+CREATE TABLE dbo.exchange_rate (
+    from_currency VARCHAR(10) NOT NULL,
+    to_currency VARCHAR(10) NOT NULL,
+    exchange_rate FLOAT NULL,
+    effective_date DATE NULL,
+    PRIMARY KEY (from_currency, to_currency, effective_date)
+);
+GO
+
+-- =============================
+-- TABLE: financial_transactions (DW)
+-- =============================
+CREATE TABLE dbo.financial_transactions (
+    transaction_id INT NOT NULL PRIMARY KEY,
+    customer_id INT NULL,
+    supplier_name VARCHAR(50) NULL,
+    transaction_date DATE NULL,
+    amount DECIMAL(10, 2) NULL,
+    currency VARCHAR(10) NULL,
+    customer_name VARCHAR(50) NULL,
+    email VARCHAR(100) NULL,
+    phone VARCHAR(20) NULL,
+    Amount_USD FLOAT NULL,
+    supplier_contact_name VARCHAR(100) NULL,
+    supplier_phone VARCHAR(25) NULL
+);
+GO
+
+-- =============================
+-- INSERT DATA INTO financial_transactions
+-- =============================
+INSERT INTO financial_transactions_db.dbo.financial_transactions (transaction_id, customer_id, supplier_name, transaction_date, amount, currency)
+VALUES
+(1, 101, 'ABC Suppliers', '2025-01-15', 500.00, 'USD'),
+(2, 102, 'XYZ Traders', '2025-02-01', 750.50, 'EUR'),
+(3, 103, 'LMN Inc.', '2025-02-10', 300.00, 'GBP');
+GO
+-- And so on ..............
+-- =============================
+-- INSERT DATA INTO customer_details
+-- =============================
+INSERT INTO financial_transactions_db.dbo.customer_details (customer_id, customer_name, email, phone)
+VALUES
+(101, 'John Doe', 'johndoe@example.com', '+1234567890'),
+(102, 'Alice Smith', 'alice.smith@example.com', '+1987654321'),
+(103, 'Robert Brown', 'robert.brown@example.com', '+1122334455');
+GO
+-- And so on ..............
