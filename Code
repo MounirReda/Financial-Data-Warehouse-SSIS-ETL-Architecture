@@ -105,3 +105,8 @@ VALUES
 (103, 'Robert Brown', 'robert.brown@example.com', '+1122334455');
 GO
 -- And so on ..............
+select f.* , c.customer_name, c.email,c.phone
+from financial_transactions f 
+inner join customer_details c
+on c.customer_id = f.customer_id;
+-- And so on ..............
